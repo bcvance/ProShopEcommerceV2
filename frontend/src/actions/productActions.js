@@ -11,6 +11,14 @@ import {
     PRODUCT_DELETE_REQUEST,
     PRODUCT_DELETE_SUCCESS,
     PRODUCT_DELETE_FAIL,
+
+    PRODUCT_CREATE_REQUEST,
+    PRODUCT_CREATE_SUCCESS,
+    PRODUCT_CREATE_FAIL,
+
+    PRODUCT_UPDATE_REQUEST,
+    PRODUCT_UPDATE_SUCCESS,
+    PRODUCT_UPDATE_FAIL,
 } from '../constants/productConstants'
 
 export const listProducts = () => async (dispatch) => {
@@ -57,6 +65,40 @@ export const listProductDetails = (id) => async (dispatch) => {
     }
 }
 
+export const createProduct = () => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: PRODUCT_CREATE_REQUEST
+        })
+
+        const { 
+            userLogin: { userInfo }
+         } = getState()
+        let url = `http://127.0.0.1:8000/api/products/create/`
+        let response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({}),
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        let data = await response.json()
+        dispatch({
+            payload: data,
+            type: PRODUCT_CREATE_SUCCESS,
+        })
+
+    }catch(error) {
+        dispatch({
+            type: PRODUCT_CREATE_FAIL,
+            payload: error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message
+        })
+    }
+}
+
 export const deleteProduct = (id) => async (dispatch, getState) => {
     try {
         dispatch({
@@ -82,6 +124,47 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
     }catch(error) {
         dispatch({
             type: PRODUCT_DELETE_FAIL,
+            payload: error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message
+        })
+    }
+}
+
+export const updateProduct = (product) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: PRODUCT_UPDATE_REQUEST
+        })
+
+        const { 
+            userLogin: { userInfo }
+         } = getState()
+        let url = `http://127.0.0.1:8000/api/products/update/${product._id}/`
+        let response = await fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify(product),
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        let data = await response.json()
+        dispatch({
+            payload: data,
+            type: PRODUCT_UPDATE_SUCCESS,
+        })
+
+        // update product details after update, so that even if user was 
+        // previously viewing the updated product before the update,
+        // the state information will be updated with the current product info
+        dispatch({
+            type: PRODUCT_DETAILS_SUCCESS, 
+            payload: data})
+
+    }catch(error) {
+        dispatch({
+            type: PRODUCT_UPDATE_FAIL,
             payload: error.response && error.response.data.detail
             ? error.response.data.detail
             : error.message

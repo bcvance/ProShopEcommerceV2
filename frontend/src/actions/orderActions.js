@@ -127,7 +127,7 @@ export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
         let url = `http://127.0.0.1:8000/api/orders/${id}/pay/`
         let response = await fetch(url, {
             method: 'PUT',
-            data: JSON.stringify(paymentResult),
+            body: JSON.stringify(paymentResult),
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${userInfo.token}`
