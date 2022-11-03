@@ -19,7 +19,16 @@ import {
     ORDER_LIST_MY_SUCCESS,
     ORDER_LIST_MY_FAIL_400,
     ORDER_LIST_MY_FAIL,
-    ORDER_LIST_MY_RESET,
+
+    ORDER_LIST_REQUEST,
+    ORDER_LIST_SUCCESS,
+    ORDER_LIST_FAIL_400,
+    ORDER_LIST_FAIL,
+
+    ORDER_DELIVER_REQUEST,
+    ORDER_DELIVER_SUCCESS,
+    ORDER_DELIVER_FAIL_400,
+    ORDER_DELIVER_FAIL,
 } from'../constants/orderConstants'
 
 import { CART_CLEAR_ITEMS } from '../constants/cartConstants'
@@ -157,6 +166,48 @@ export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
     }
 }
 
+export const deliverOrder = (order) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: ORDER_DELIVER_REQUEST
+        })
+
+        const { 
+            userLogin: { userInfo }
+         } = getState()
+        let url = `http://127.0.0.1:8000/api/orders/${order._id}/deliver/`
+        let response = await fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify(order),
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        let data = await response.json()
+        if (response.ok) {
+            dispatch({
+                type: ORDER_DELIVER_SUCCESS,
+                payload: data
+            })
+        }
+        else {
+            dispatch({
+                type: ORDER_DELIVER_FAIL_400,
+                payload: data.detail
+            })
+        }
+
+    }catch(error) {
+        dispatch({
+            type: ORDER_DELIVER_FAIL,
+            payload: error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message
+        })
+    }
+}
+
 
 export const listMyOrders = (id) => async (dispatch, getState) => {
     try {
@@ -192,6 +243,47 @@ export const listMyOrders = (id) => async (dispatch, getState) => {
     }catch(error) {
         dispatch({
             type: ORDER_LIST_MY_FAIL,
+            payload: error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message
+        })
+    }
+}
+
+export const listOrders = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: ORDER_LIST_REQUEST
+        })
+
+        const { 
+            userLogin: { userInfo }
+         } = getState()
+        let url = `http://127.0.0.1:8000/api/orders/`
+        let response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        let data = await response.json()
+        if (response.ok) {
+            dispatch({
+                type: ORDER_LIST_SUCCESS,
+                payload: data
+            })
+        }
+        else {
+            dispatch({
+                type: ORDER_LIST_FAIL_400,
+                payload: data.detail
+            })
+        }
+
+    }catch(error) {
+        dispatch({
+            type: ORDER_LIST_FAIL,
             payload: error.response && error.response.data.detail
             ? error.response.data.detail
             : error.message
