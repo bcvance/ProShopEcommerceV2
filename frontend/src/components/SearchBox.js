@@ -1,18 +1,24 @@
 import React, { useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 function SearchBox() {
 
     const [keyword, setKeyword] = useState('')
 
     let navigate = useNavigate()
+    let location = useLocation()
 
     const submitHandler = (e) => {
         e.preventDefault()
         // redirect user to filtered products page if search box contains text
         if (keyword) {
-            navigate(`/?keyword=${keyword}`)
+            if (location.pathname == '/admin/productlist/') {
+                navigate(`/admin/productlist/?keyword=${keyword}&page=1`)
+            }
+            else {
+                navigate(`/?keyword=${keyword}&page=1`)
+            }
         }     
     }
   return (
