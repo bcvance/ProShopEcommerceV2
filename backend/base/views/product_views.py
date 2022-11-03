@@ -96,7 +96,7 @@ def createProductReview(request, pk):
             product = product,
             name=user.first_name,
             rating=data['rating'],
-            message=data['comment'],
+            comment=data['comment'],
         )
 
         reviews = product.review_set.all()

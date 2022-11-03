@@ -19,6 +19,10 @@ import {
     PRODUCT_UPDATE_REQUEST,
     PRODUCT_UPDATE_SUCCESS,
     PRODUCT_UPDATE_FAIL,
+
+    PRODUCT_CREATE_REVIEW_REQUEST,
+    PRODUCT_CREATE_REVIEW_SUCCESS,
+    PRODUCT_CREATE_REVIEW_FAIL,
 } from '../constants/productConstants'
 
 export const listProducts = () => async (dispatch) => {
@@ -165,6 +169,48 @@ export const updateProduct = (product) => async (dispatch, getState) => {
     }catch(error) {
         dispatch({
             type: PRODUCT_UPDATE_FAIL,
+            payload: error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message
+        })
+    }
+}
+
+
+export const createProductReview = (id, review) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: PRODUCT_CREATE_REVIEW_REQUEST
+        })
+
+        const { 
+            userLogin: { userInfo }
+         } = getState()
+        let url = `http://127.0.0.1:8000/api/products/${id}/reviews/`
+        let response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(review),
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        let data = await response.json()
+        dispatch({
+            payload: data,
+            type: PRODUCT_CREATE_REVIEW_SUCCESS,
+        })
+
+        // update product details after update, so that even if user was 
+        // previously viewing the updated product before the update,
+        // the state information will be updated with the current product info
+        dispatch({
+            type: PRODUCT_CREATE_SUCCESS, 
+            payload: data})
+
+    }catch(error) {
+        dispatch({
+            type: PRODUCT_CREATE_REVIEW_FAIL,
             payload: error.response && error.response.data.detail
             ? error.response.data.detail
             : error.message
