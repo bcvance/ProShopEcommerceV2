@@ -23,13 +23,14 @@ import {
     PRODUCT_CREATE_REVIEW_REQUEST,
     PRODUCT_CREATE_REVIEW_SUCCESS,
     PRODUCT_CREATE_REVIEW_FAIL,
+    PRODUCT_CREATE_REVIEW_FAIL_400,
 } from '../constants/productConstants'
 
-export const listProducts = () => async (dispatch) => {
+export const listProducts = (keyword = '') => async (dispatch) => {
     try{
         dispatch({ type:PRODUCT_LIST_REQUEST })
 
-        let url = 'http://127.0.0.1:8000/api/products';
+        let url = `http://127.0.0.1:8000/api/products${keyword}`;
         const response = await fetch(url);
         const  data = await response.json();
 
@@ -196,17 +197,18 @@ export const createProductReview = (id, review) => async (dispatch, getState) =>
             }
         })
         let data = await response.json()
-        dispatch({
-            payload: data,
-            type: PRODUCT_CREATE_REVIEW_SUCCESS,
-        })
-
-        // update product details after update, so that even if user was 
-        // previously viewing the updated product before the update,
-        // the state information will be updated with the current product info
-        dispatch({
-            type: PRODUCT_CREATE_SUCCESS, 
-            payload: data})
+        if (response.ok) {
+            dispatch({
+                payload: data,
+                type: PRODUCT_CREATE_REVIEW_SUCCESS,
+            })
+        }
+        else {
+            dispatch({
+                payload: data.detail,
+                type: PRODUCT_CREATE_REVIEW_FAIL_400,
+            })
+        }
 
     }catch(error) {
         dispatch({

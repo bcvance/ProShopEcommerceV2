@@ -24,6 +24,7 @@ import {
     PRODUCT_CREATE_REVIEW_REQUEST,
     PRODUCT_CREATE_REVIEW_SUCCESS,
     PRODUCT_CREATE_REVIEW_FAIL,
+    PRODUCT_CREATE_REVIEW_FAIL_400,
     PRODUCT_CREATE_REVIEW_RESET,
 } from '../constants/productConstants'
 
@@ -120,6 +121,9 @@ export const productReviewCreateReducer = (state = {}, action) => {
 
         case PRODUCT_CREATE_REVIEW_SUCCESS:
             return { loading: false, success: true }
+
+        case PRODUCT_CREATE_REVIEW_FAIL_400:
+            return { loading: false, error: action.payload}
 
         case PRODUCT_CREATE_REVIEW_FAIL:
             return { loading: false, error: action.payload }
