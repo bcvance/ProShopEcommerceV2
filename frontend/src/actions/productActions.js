@@ -24,6 +24,11 @@ import {
     PRODUCT_CREATE_REVIEW_SUCCESS,
     PRODUCT_CREATE_REVIEW_FAIL,
     PRODUCT_CREATE_REVIEW_FAIL_400,
+
+    PRODUCT_TOP_REQUEST,
+    PRODUCT_TOP_SUCCESS,
+    PRODUCT_TOP_FAIL,
+    PRODUCT_TOP_FAIL_400,
 } from '../constants/productConstants'
 
 export const listProducts = (keyword = '') => async (dispatch) => {
@@ -213,6 +218,28 @@ export const createProductReview = (id, review) => async (dispatch, getState) =>
     }catch(error) {
         dispatch({
             type: PRODUCT_CREATE_REVIEW_FAIL,
+            payload: error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message
+        })
+    }
+}
+
+export const listTopProducts = () => async (dispatch) => {
+    try{
+        dispatch({ type:PRODUCT_TOP_REQUEST })
+
+        let url = `http://127.0.0.1:8000/api/products/top/`;
+        const response = await fetch(url);
+        const  data = await response.json();
+
+        dispatch({
+            type: PRODUCT_TOP_SUCCESS,
+            payload: data
+        })
+    }catch(error){
+        dispatch({
+            type: PRODUCT_TOP_FAIL,
             payload: error.response && error.response.data.detail
             ? error.response.data.detail
             : error.message
