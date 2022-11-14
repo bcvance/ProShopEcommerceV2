@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'base.apps.BaseConfig'
+    'storages',
+    'base.apps.BaseConfig',
 ]
 
 MIDDLEWARE = [
@@ -92,9 +93,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'mecommerce',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
+        'USER': 'bcvance',
+        'PASSWORD': 'Awpar5holein!',
+        'HOST': 'mecommerce-identifier.cejp3h4y4mii.us-east-2.rds.amazonaws.com',
         'PORT': '5432'
     }
 }
@@ -142,7 +143,10 @@ STATICFILES_DIRS = [
     BASE_DIR / 'frontend/build/static'
 ]
 
+#STATIC_ROOT = BASE_DIR / 'static'
 MEDIA_ROOT = 'static/images'
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -188,3 +192,15 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+AWS_ACCESS_KEY_ID = 'AKIAZ5WJWB66FT5NDCFA'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'mecommerce-bucket'
+AWS_S3_REGION_NAME = 'us-east-2'
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_SIGNATURE_VERSION = 's3v4'
