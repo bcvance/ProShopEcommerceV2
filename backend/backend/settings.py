@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-_qs027r8*n174_=1z)^)ma!ugsoknn12@jxnd%i5x$7cgd&c!(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'mecommerce1.herokuapp.com']
 
 
 # Application definition
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -94,6 +95,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'mecommerce',
         'USER': 'bcvance',
+        'PASSWORD': os.environ.get('DB_PASS'),
         'HOST': 'mecommerce-identifier.cejp3h4y4mii.us-east-2.rds.amazonaws.com',
         'PORT': '5432'
     }
@@ -143,7 +145,8 @@ STATICFILES_DIRS = [
 ]
 
 #STATIC_ROOT = BASE_DIR / 'static'
-MEDIA_ROOT = 'static/images'
+MEDIA_ROOT = BASE_DIR / 'static/images'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 
@@ -193,12 +196,16 @@ SIMPLE_JWT = {
 }
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
-
+AWS_ACCESS_KEY_ID = os.environ.get('ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'mecommerce-bucket'
 AWS_S3_REGION_NAME = 'us-east-2'
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_SIGNATURE_VERSION = 's3v4'
+
+if os.getcwd() == '/app':
+    DEBUG = False
