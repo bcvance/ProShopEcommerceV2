@@ -35,7 +35,7 @@ export const listProducts = (keyword = '') => async (dispatch) => {
     try{
         dispatch({ type:PRODUCT_LIST_REQUEST })
 
-        let url = `https://mecommerce1.herokuapp.com/api/products${keyword}`;
+        let url = `/api/products${keyword}`;
         const response = await fetch(url);
         const  data = await response.json();
 
@@ -57,7 +57,7 @@ export const listProductDetails = (id) => async (dispatch) => {
     try{
         dispatch({ type:PRODUCT_DETAILS_REQUEST })
 
-        let url = `http://127.0.0.1:8000/api/products/${id}`;
+        let url = `/api/products/${id}`;
         const response = await fetch(url);
         const  data = await response.json();
 
@@ -229,7 +229,7 @@ export const listTopProducts = () => async (dispatch) => {
     try{
         dispatch({ type:PRODUCT_TOP_REQUEST })
 
-        let url = `http://127.0.0.1:8000/api/products/top/`;
+        let url = `/api/products/top/`;
         const response = await fetch(url);
         const  data = await response.json();
 
