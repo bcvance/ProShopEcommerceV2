@@ -35,7 +35,7 @@ export const listProducts = (keyword = '') => async (dispatch) => {
     try{
         dispatch({ type:PRODUCT_LIST_REQUEST })
 
-        let url = `https://mecommerce1.herokuapp.com/api/products${keyword}`;
+        let url = `https://mecommerce1.herokuapp.com/api/prodgucts${keyword}`;
         const response = await fetch(url);
         const  data = await response.json();
 
