@@ -49,7 +49,7 @@ export const login = (email, password) => async (dispatch) => {
             type: USER_LOGIN_REQUEST
         })
 
-        let url = 'http://127.0.0.1:8000/api/users/login/'
+        let url = '/api/users/login/'
         let response = await fetch(url, {
             method: 'POST',
             body: JSON.stringify({'username': email, 'password': password}),
@@ -97,7 +97,7 @@ export const register = (name, email, password) => async (dispatch) => {
             type: USER_REGISTER_REQUEST
         })
 
-        let url = 'http://127.0.0.1:8000/api/users/register/'
+        let url = '/api/users/register/'
         let response = await fetch(url, {
             method: 'POST',
             body: JSON.stringify({'name': name, 'email': email, 'password': password}),
@@ -145,7 +145,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
             userLogin: { userInfo}
          } = getState()
 
-        let url = `http://127.0.0.1:8000/api/users/${id}/`
+        let url = `/api/users/${id}/`
         let response = await fetch(url, {
             method: 'GET',
             headers: {
@@ -190,7 +190,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
             userLogin: { userInfo }
          } = getState()
 
-        let url = `http://127.0.0.1:8000/api/users/profile/update/`
+        let url = `/api/users/profile/update/`
         let response = await fetch(url, {
             method: 'PUT',
             body: JSON.stringify(user),
@@ -242,7 +242,7 @@ export const listUsers = () => async (dispatch, getState) => {
             userLogin: { userInfo }
          } = getState()
 
-        let url = `http://127.0.0.1:8000/api/users/`
+        let url = `/api/users/`
         let response = await fetch(url, {
             method: 'GET',
             headers: {
@@ -286,7 +286,7 @@ export const deleteUser = (id) => async (dispatch, getState) => {
             userLogin: { userInfo }
          } = getState()
 
-        let url = `http://127.0.0.1:8000/api/users/delete/${id}/`
+        let url = `/api/users/delete/${id}/`
         let response = await fetch(url, {
             method: 'DELETE',
             headers: {
@@ -330,7 +330,7 @@ export const updateUser = (user) => async (dispatch, getState) => {
             userLogin: { userInfo }
          } = getState()
 
-        let url = `http://127.0.0.1:8000/api/users/update/${user._id}/`
+        let url = `/api/users/update/${user._id}/`
         let response = await fetch(url, {
             method: 'PUT',
             body: JSON.stringify(user),

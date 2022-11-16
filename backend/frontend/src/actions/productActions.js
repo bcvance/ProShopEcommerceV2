@@ -84,7 +84,7 @@ export const createProduct = () => async (dispatch, getState) => {
         const { 
             userLogin: { userInfo }
          } = getState()
-        let url = `http://127.0.0.1:8000/api/products/create/`
+        let url = `/api/products/create/`
         let response = await fetch(url, {
             method: 'POST',
             body: JSON.stringify({}),
@@ -118,7 +118,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
         const { 
             userLogin: { userInfo }
          } = getState()
-        let url = `http://127.0.0.1:8000/api/products/delete/${id}/`
+        let url = `/api/products/delete/${id}/`
         let response = await fetch(url, {
             method: 'DELETE',
             headers: {
@@ -150,7 +150,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
         const { 
             userLogin: { userInfo }
          } = getState()
-        let url = `http://127.0.0.1:8000/api/products/update/${product._id}/`
+        let url = `/api/products/update/${product._id}/`
         let response = await fetch(url, {
             method: 'PUT',
             body: JSON.stringify(product),
@@ -192,7 +192,7 @@ export const createProductReview = (id, review) => async (dispatch, getState) =>
         const { 
             userLogin: { userInfo }
          } = getState()
-        let url = `http://127.0.0.1:8000/api/products/${id}/reviews/`
+        let url = `/api/products/${id}/reviews/`
         let response = await fetch(url, {
             method: 'POST',
             body: JSON.stringify(review),

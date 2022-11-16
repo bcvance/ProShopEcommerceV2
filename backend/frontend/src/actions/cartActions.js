@@ -5,7 +5,7 @@ import {
     CART_SAVE_PAYMENT_METHOD } from '../constants/cartConstants'
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
-    const result = await fetch(`http://127.0.0.1:8000/api/products/${id}`);
+    const result = await fetch(`/api/products/${id}`);
     const data = await result.json();
 
     dispatch({

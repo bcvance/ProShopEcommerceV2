@@ -42,7 +42,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
         const { 
             userLogin: { userInfo }
          } = getState()
-        let url = `http://127.0.0.1:8000/api/orders/${id}/`
+        let url = `/api/orders/${id}/`
         let response = await fetch(url, {
             method: 'GET',
             headers: {
@@ -83,7 +83,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
         const { 
             userLogin: { userInfo }
          } = getState()
-        let url = `http://127.0.0.1:8000/api/orders/add/`
+        let url = `/api/orders/add/`
         let response = await fetch(url, {
             method: 'POST',
             body: JSON.stringify(order),
@@ -133,7 +133,7 @@ export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
         const { 
             userLogin: { userInfo }
          } = getState()
-        let url = `http://127.0.0.1:8000/api/orders/${id}/pay/`
+        let url = `/api/orders/${id}/pay/`
         let response = await fetch(url, {
             method: 'PUT',
             body: JSON.stringify(paymentResult),
@@ -175,7 +175,7 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
         const { 
             userLogin: { userInfo }
          } = getState()
-        let url = `http://127.0.0.1:8000/api/orders/${order._id}/deliver/`
+        let url = `/api/orders/${order._id}/deliver/`
         let response = await fetch(url, {
             method: 'PUT',
             body: JSON.stringify(order),
@@ -218,7 +218,7 @@ export const listMyOrders = (id) => async (dispatch, getState) => {
         const { 
             userLogin: { userInfo }
          } = getState()
-        let url = `http://127.0.0.1:8000/api/orders/myorders/`
+        let url = `/api/orders/myorders/`
         let response = await fetch(url, {
             method: 'GET',
             headers: {
@@ -259,7 +259,7 @@ export const listOrders = (id) => async (dispatch, getState) => {
         const { 
             userLogin: { userInfo }
          } = getState()
-        let url = `http://127.0.0.1:8000/api/orders/`
+        let url = `/api/orders/`
         let response = await fetch(url, {
             method: 'GET',
             headers: {
