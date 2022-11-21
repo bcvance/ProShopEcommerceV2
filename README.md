@@ -3,7 +3,7 @@
 
 MeCommerce is a mock ecommerce website with full user authentication, paypal integration and site admin functionality. Check it out at [mecommerce1.herokuapp.com](https://mecommerce1.herokuapp.com/). Code for this project can be found [here](https://github.com/bcvance/ProShopEcommerceV2).
 
-![alt text](https://github.com/bcvance/MeCommerce/blob/master/backend/base/readme_media/mecommerce_home.png))
+![alt text](https://github.com/bcvance/MeCommerce/blob/master/backend/base/readme_media/mecommerce_home.png)
 
 Features:
 ---------
@@ -33,7 +33,7 @@ Using the application:
     
 2.  Update order delivery status
     
-![alt text](https://github.com/bcvance/MeCommerce/blob/master/backend/base/readme_media/mecommerce_admin.gif))
+![alt text](https://github.com/bcvance/MeCommerce/blob/master/backend/base/readme_media/mecommerce_admin.gif)
 
 Stack/technology information:
 -----------------------------
