@@ -96,7 +96,7 @@ DATABASES = {
         'NAME': 'mecommerce2',
         'USER': 'bcvance',
         'PASSWORD': os.environ.get('DB_PASS'),
-        'HOST': 'mecommerce-identifier-2.cl2wqsegdzf3.us-east-1.rds.amazonaws.com',
+        'HOST': 'mecommerce2.cl2wqsegdzf3.us-east-1.rds.amazonaws.com',
         'PORT': '5432'
     }
 }
