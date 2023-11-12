@@ -1,7 +1,7 @@
 **MeCommerce**
 ==============
 
-MeCommerce is a mock ecommerce website with full user authentication, paypal integration and site admin functionality. Check it out at [mecommerce1.herokuapp.com](https://mecommerce1.herokuapp.com/).
+MeCommerce is a mock ecommerce website with full user authentication, paypal integration and site admin functionality. Check it out [here](https://mecommerce2-f662679488b5.herokuapp.com/).
 
 ![alt text](https://github.com/bcvance/MeCommerce/blob/master/backend/base/readme_media/mecommerce_home.png)
 
