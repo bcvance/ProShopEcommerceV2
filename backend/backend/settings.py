@@ -208,3 +208,5 @@ AWS_QUERYSTRING_AUTH = False
 
 if os.getcwd() == '/app':
     DEBUG = False
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
